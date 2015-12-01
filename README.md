@@ -2,7 +2,7 @@
 
 Currently using `watchify`, `browserify` and `babelify` to watch and generate our `bundle.js`.
 
-This is a great alternative to using jsbin to learn redux.
+This is a great alternative to using jsbin to learn Redux.
 
 To start:
 
@@ -10,6 +10,5 @@ To start:
 2. From the repo folder run:
    `npm install`
 3. `npm start`
-4. open http://localhost:8000/ in the browser
 
 Head to [http://rackt.github.io/redux/](http://rackt.github.io/redux/) for the Redux documentation.
