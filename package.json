@@ -1,30 +1,26 @@
 {
-  "name": "simplest-redux-example",
-  "version": "0.0.0",
-  "description": "simplest redux + react example",
+  "name": "basic-react-redux",
+  "version": "0.0.1",
+  "description": "Simple redux + react starter project",
   "main": "index.js",
   "scripts": {
-    "start": "watchify --extension=js -o bundle.js index.js & python -m SimpleHTTPServer"
+    "start": "watchify --extension=js -o bundle.js index.js & serve . & opener http://localhost:3000"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jackielii/simplest-redux-example.git"
+    "url": "git+https://github.com/pcanterini/basic-react-redux.git"
   },
   "keywords": [
     "redux",
     "react"
   ],
-  "author": "Jackie Li",
+  "author": "Jackie Li, Pedro Canterini",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jackielii/simplest-redux-example/issues"
-  },
   "browserify": {
     "transform": [
       "babelify"
     ]
   },
-  "homepage": "https://github.com/jackielii/simplest-redux-example#readme",
   "dependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
@@ -32,8 +28,10 @@
     "redux": "^3.0.0"
   },
   "devDependencies": {
-    "browserify": "~10.2.4",
     "babelify": "~6.1.2",
+    "browserify": "~10.2.4",
+    "opener": "^1.4.1",
+    "serve": "^1.4.0",
     "watchify": "^3.3.1"
   }
 }
