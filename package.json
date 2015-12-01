@@ -4,7 +4,7 @@
   "description": "Simple redux + react starter project",
   "main": "index.js",
   "scripts": {
-    "start": "watchify --extension=js -o bundle.js index.js & serve . & opener http://localhost:3000"
+    "start": "watchify src/index.js -o bundle.js & opener http://localhost:3000 & serve ."
   },
   "repository": {
     "type": "git",
