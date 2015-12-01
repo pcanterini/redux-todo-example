@@ -1,17 +1,15 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 
-For beginners like me to learn the concepts in [Redux](https://github.com/rackt/redux)
+Currently using `watchify`, `browserify` and `babelify` to watch and generate our `bundle.js`.
 
-Can it be simpler? send a pull request
+This is a great alternative to using jsbin to learn redux.
 
-To run this example:
+To start:
 
-1. [Download this repo](https://github.com/jackielii/simplest-redux-example/archive/master.zip) or `git clone https://github.com/jackielii/simplest-redux-example.git`
-2. From the repo folder run:  
+1. `git clone https://github.com/pcanterini/basic-react-redux`
+2. From the repo folder run:
    `npm install`
 3. `npm start`
 4. open http://localhost:8000/ in the browser
 
-And also head over to http://rackt.github.io/redux/ for some great documentation.
-
-There is also a [webpack](https://github.com/jackielii/simplest-redux-example/tree/webpack) and an [ES5](https://github.com/jackielii/simplest-redux-example/tree/es5) example.
+Head to [http://rackt.github.io/redux/](http://rackt.github.io/redux/) for the Redux documentation.
