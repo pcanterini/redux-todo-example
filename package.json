@@ -16,9 +16,11 @@
     "react"
   ],
   "author": "Jackie Li",
-  "contributors": [{
-    "name": "Pedro Canterini"
-  }],
+  "contributors": [
+    {
+      "name": "Pedro Canterini"
+    }
+  ],
   "license": "ISC",
   "browserify": {
     "transform": [
@@ -34,6 +36,7 @@
   "devDependencies": {
     "babelify": "~6.1.2",
     "browserify": "~10.2.4",
+    "expect": "^1.13.0",
     "opener": "^1.4.1",
     "serve": "^1.4.0",
     "watchify": "^3.3.1"

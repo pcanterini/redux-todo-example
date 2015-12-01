@@ -1,66 +1,37 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
-import { Provider, connect } from 'react-redux'
 
-// React component
-class Counter extends React.Component {
-  render () {
-    const { value, onIncreaseClick } = this.props
-    return (
-      <div>
-        <span>{value}</span>
-        <button onClick={onIncreaseClick}>Increase</button>
-      </div>
-    )
-  }
-}
-
-Counter.propTypes = {
-  value: PropTypes.number.isRequired,
-  onIncreaseClick: PropTypes.func.isRequired
-}
-
-// Action
-const increaseAction = {type: 'increase'}
-
-// Reducer
-function counter (state = {count: 0}, action) {
-  let count = state.count
+const counter = (store = 0, action) => {
   switch (action.type) {
-    case 'increase':
-      return {count: count + 1}
+    case 'INCREMENT':
+      return store + 1
+    case 'DECREMENT':
+      return store - 1
     default:
-      return state
+      return store
   }
+}
+
+const Counter = ({value, onDecrement, onIncrement}) => (
+  <div>
+    <h2>{value}</h2>
+    <button onClick={onDecrement}>-</button>
+    <button onClick={onIncrement}>+</button>
+  </div>
+)
+
+const render = () => {
+  ReactDOM.render(
+    <Counter
+    value={store.getState()}
+    onDecrement={() => store.dispatch({type: 'DECREMENT'})}
+    onIncrement={() => store.dispatch({type: 'INCREMENT'})}
+    />,
+    document.getElementById('app')
+  )
 }
 
 // Store
-let store = createStore(counter)
-
-// Map Redux state to component props
-function mapStateToProps (state) {
-  return {
-    value: state.count
-  }
-}
-
-// Map Redux actions to component props
-function mapDispatchToProps (dispatch) {
-  return {
-    onIncreaseClick: () => dispatch(increaseAction)
-  }
-}
-
-// Connected Component
-let App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Counter)
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('app')
-)
+const store = createStore(counter)
+store.subscribe(render)
