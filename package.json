@@ -2,6 +2,7 @@
   "name": "basic-react-redux",
   "version": "0.0.1",
   "description": "Simple redux + react starter project",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "start": "watchify src/index.js -o bundle.js & opener http://localhost:3000 & serve ."
@@ -14,7 +15,10 @@
     "redux",
     "react"
   ],
-  "author": "Jackie Li, Pedro Canterini",
+  "author": "Jackie Li",
+  "contributors": [{
+    "name": "Pedro Canterini"
+  }],
   "license": "ISC",
   "browserify": {
     "transform": [
