@@ -35,3 +35,6 @@ const render = () => {
 // Store
 const store = createStore(counter)
 store.subscribe(render)
+
+// init
+render()
