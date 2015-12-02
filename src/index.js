@@ -21,7 +21,7 @@ const todos = (state = [], action) => {
 
         return {
           ...todo,
-          completed: true
+          completed: !todo.completed
         }
       })
     default:
@@ -29,44 +29,69 @@ const todos = (state = [], action) => {
   }
 }
 
-// class TodoApp extends React.Component {
-//   render () {
-//     return (
-//       <ul>
-//           {this.props.todos.map((todo) => {
-//             return <li key={todo.id}>{todo.text}</li>
-//           })}
-//       </ul>
-//     )
-//   }
-// }
+const FilterLink = ({filter, children}) => {
+  return (
+    <a href=''
+      onClick={ (e) => {
+        e.preventDefault()
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter
+        })
+      }}>{children}</a>
+  )
+}
 
 let nextTodoId = 0
 
-const TodoApp = ({todos}) => {
-  let todoInput
+class TodoApp extends React.Component {
+  render () {
+    let todoInput
+    const visibleTodos = getVisibleTodos(this.props.todos, this.props.visiblilityFilter)
 
-  return (
-    <div>
-      <input ref={ (input) => {
-        todoInput = input
-      }}/>
-      <button
-        onClick={ () => {
-          store.dispatch({
-            id: nextTodoId++,
-            text: todoInput.value,
-            type: 'ADD_TODO'
-          })
-          todoInput.value = ''
-        }}>Add</button>
-      <ul>
-        {todos.map((todo) => {
-          return <li key={todo.id}>{todo.text}</li>
-        })}
-      </ul>
-    </div>
-  )
+    return (
+      <div>
+        <input ref={ (input) => {
+          todoInput = input
+        }}/>
+        <button
+          onClick={ () => {
+            if (todoInput.value === '') {
+              return
+            }
+            store.dispatch({
+              id: nextTodoId++,
+              text: todoInput.value,
+              type: 'ADD_TODO'
+            })
+            todoInput.value = ''
+          }}>Add</button>
+        <ul>
+          {visibleTodos.map((todo) =>
+            <li key={todo.id}
+              style={{
+                textDecoration: todo.completed ? 'line-through' : 'none',
+                cursor: 'pointer'
+              }}
+              onClick={ () => {
+                store.dispatch({
+                  id: todo.id,
+                  type: 'TOGGLE_TODO'
+                })
+              }}>
+              {todo.text}
+            </li>
+          )}
+        </ul>
+        <p>
+          Show:&nbsp;
+          <FilterLink filter='SHOW_ALL'>All</FilterLink>&nbsp;
+          <FilterLink filter='SHOW_ACTIVE'>Active</FilterLink>&nbsp;
+          <FilterLink filter='SHOW_COMPLETED'>Completed</FilterLink>
+        </p>
+      </div>
+    )
+  }
 }
 
 const visiblilityFilter = (state = 'SHOW_ALL', action) => {
@@ -78,49 +103,30 @@ const visiblilityFilter = (state = 'SHOW_ALL', action) => {
   }
 }
 
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos
+    case 'SHOW_ACTIVE':
+      return todos.filter((t) => !t.completed)
+    case 'SHOW_COMPLETED':
+      return todos.filter((t) => t.completed)
+    default:
+      return todos
+  }
+}
+
 const todoApp = combineReducers({
   todos,
   visiblilityFilter
 })
 
-// const todoApp = (state = {}, action) => {
-//   return {
-//     todos: todos(
-//       state.todos,
-//       action
-//     ),
-//     visiblilityFilter: visiblilityFilter(
-//       state.visiblilityFilter,
-//       action
-//     )
-//   }
-// }
-
 const store = createStore(todoApp)
 
-// store.dispatch({
-//   id: 0,
-//   text: 'My todo',
-//   type: 'ADD_TODO'
-// })
-// store.dispatch({
-//   id: 1,
-//   text: 'My todo 2',
-//   type: 'ADD_TODO'
-// })
-// store.dispatch({
-//   id: 0,
-//   type: 'TOGGLE_TODO'
-// })
-// store.dispatch({
-//   type: 'SET_VISIBILITY_FILTER',
-//   filter: 'SHOW_COMPLETED'
-// })
-
-
 const render = () => {
-  ReactDOM.render(<TodoApp todos={store.getState().todos} />, document.getElementById('app'))
+  ReactDOM.render(<TodoApp {...store.getState()} />, document.getElementById('app'))
+  console.log('state:', store.getState())
 }
 
 store.subscribe(render)
-render();
+render()
