@@ -1,40 +1,46 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 
-const counter = (store = 0, action) => {
+const todos = (state = [], action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return store + 1
-    case 'DECREMENT':
-      return store - 1
+    case 'ADD_TODO':
+      return [
+        ...state,
+        {
+          id: action.id,
+          text: action.text,
+          completed: false
+        }
+      ]
+    case 'TOGGLE_TODO':
+      return state.map((todo) => {
+        if (todo.id !== action.id) {
+          return todo
+        }
+
+        return {
+          ...todo,
+          completed: true
+        }
+      })
     default:
-      return store
+      return state
   }
 }
 
-const Counter = ({value, onDecrement, onIncrement}) => (
-  <div>
-    <h2>{value}</h2>
-    <button onClick={onDecrement}>-</button>
-    <button onClick={onIncrement}>+</button>
-  </div>
-)
-
 const render = () => {
-  ReactDOM.render(
-    <Counter
-    value={store.getState()}
-    onDecrement={() => store.dispatch({type: 'DECREMENT'})}
-    onIncrement={() => store.dispatch({type: 'INCREMENT'})}
-    />,
-    document.getElementById('app')
-  )
+  console.log('my todos:', store.getState())
 }
 
-// Store
-const store = createStore(counter)
+const store = createStore(todos)
 store.subscribe(render)
 
-// init
-render()
+store.dispatch({
+  id: 0,
+  text: 'My todo',
+  type: 'ADD_TODO'
+})
+
+store.dispatch({
+  id: 0,
+  type: 'TOGGLE_TODO'
+})
