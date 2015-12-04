@@ -45,6 +45,7 @@ const FilterLink = ({filter, children}) => {
 let nextTodoId = 0
 
 class TodoApp extends React.Component {
+
   render () {
     let todoInput
     const visibleTodos = getVisibleTodos(this.props.todos, this.props.visiblilityFilter)
@@ -92,6 +93,11 @@ class TodoApp extends React.Component {
       </div>
     )
   }
+}
+
+TodoApp.propTypes = {
+  todos: React.PropTypes.array.isRequired,
+  visiblilityFilter: React.PropTypes.string.isRequired
 }
 
 const visiblilityFilter = (state = 'SHOW_ALL', action) => {
